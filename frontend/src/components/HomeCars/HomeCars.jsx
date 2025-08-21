@@ -25,7 +25,7 @@
                 transitionDelay: `${animateCards ? idx * 100 : 0}ms`
               }}
             >
-              
+              ₹
             </div>
 
             [  
