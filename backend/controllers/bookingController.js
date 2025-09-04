@@ -83,6 +83,16 @@ const BLOCKING_STATUSES = ["pending", "active", "upcoming"];
 
 /* ---------- UPDATE ---------- */
 
+  // file handling
+    if (req.file) {
+      if (booking.carImage && booking.carImage.startsWith("/uploads/")) deleteLocalFileIfPresent(booking.carImage);
+      booking.carImage = `/uploads/${req.file.filename}`;
+    } else if (req.body.carImage !== undefined) {
+      if (req.body.carImage && !String(req.body.carImage).startsWith("/uploads/") && booking.carImage && booking.carImage.startsWith("/uploads/")) {
+        deleteLocalFileIfPresent(booking.carImage);
+      }
+      booking.carImage = req.body.carImage || booking.carImage;
+    }
 
     const updatable = ["customer", "email", "phone", "car", "pickupDate", "returnDate", "bookingDate", "status", "amount", "details", "address"];
     for (const f of updatable) {
