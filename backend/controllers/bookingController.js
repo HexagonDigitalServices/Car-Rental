@@ -22,7 +22,19 @@ const BLOCKING_STATUSES = ["pending", "active", "upcoming"];
   try 
     let { customer, email, phone, car, pickupDate, returnDate, amount, details, address, carImage } = req.body;
 
-
+   // Resolve car summary (accepts ObjectId string, object, or stringified JSON)
+    let carSummary = null;
+    if (typeof car === "string" && /^[0-9a-fA-F]{24}$/.test(car)) {
+      const carDoc = await Car.findById(car).session(session).lean();
+      if (!carDoc) { await session.abortTransaction(); session.endSession(); return res.status(404).json({ success: false, message: "Car not found" }); }
+      carSummary = buildCarSummary(carDoc);
+    } else {
+      const parsed = tryParseJSON(car) || car;
+      carSummary = buildCarSummary(parsed);
+      if (!carSummary.id) { await session.abortTransaction(); session.endSession(); return res.status(400).json({ success: false, message: "Invalid car payload" }); }
+      const carExists = await Car.exists({ _id: carSummary.id }).session(session);
+      if (!carExists) { await session.abortTransaction(); session.endSession(); return res.status(404).json({ success: false, message: "Car not found" }); }
+    }
     const carId = carSummary.id;
     const overlappingCount = await Booking.countDocuments({
       "car.id": carId,
@@ -71,6 +83,16 @@ const BLOCKING_STATUSES = ["pending", "active", "upcoming"];
 
 /* ---------- UPDATE ---------- */
 
+  // file handling
+    if (req.file) {
+      if (booking.carImage && booking.carImage.startsWith("/uploads/")) deleteLocalFileIfPresent(booking.carImage);
+      booking.carImage = `/uploads/${req.file.filename}`;
+    } else if (req.body.carImage !== undefined) {
+      if (req.body.carImage && !String(req.body.carImage).startsWith("/uploads/") && booking.carImage && booking.carImage.startsWith("/uploads/")) {
+        deleteLocalFileIfPresent(booking.carImage);
+      }
+      booking.carImage = req.body.carImage || booking.carImage;
+    }
 
     const updatable = ["customer", "email", "phone", "car", "pickupDate", "returnDate", "bookingDate", "status", "amount", "details", "address"];
     for (const f of updatable) {
