@@ -241,7 +241,13 @@ const FilterSelect = ({ value, onChange, categories }) => (
 
 // Main component
 const ManageCarPage = () => {
-
+    setCars(
+        raw.map((c, i) => ({
+          ...buildSafeCar(c, i),
+          image: c.image ? makeImageUrl(c.image) : buildSafeCar(c, i).image,
+          _rawImage: c.image ?? c._rawImage ?? "",
+        }))
+      );
 };
 
 export default ManageCarPage;
