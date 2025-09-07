@@ -310,6 +310,21 @@ const BookingPage = () => {
     }
   }, []);
 
+   const handleToggleDetails = (id) =>
+    setExpandedBooking(expandedBooking === id ? null : id);
+  const handleEditStatus = (id, currentStatus) => {
+    setEditingStatus(id);
+    setNewStatus(currentStatus);
+  };
+  const handleCancelEdit = () => {
+    setEditingStatus(null);
+    setNewStatus("");
+  };
+  const handleResetFilters = () => {
+    setSearchTerm("");
+    setStatusFilter("all");
+  };
+
 
        !q ||
         stringForSearch(b.customer).includes(q) ||
