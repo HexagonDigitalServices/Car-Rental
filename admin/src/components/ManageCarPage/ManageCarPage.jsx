@@ -241,10 +241,7 @@ const FilterSelect = ({ value, onChange, categories }) => (
 
 // Main component
 const ManageCarPage = () => {
-  const [cars, setCars] = useState([]);
-  const [categoryFilter, setCategoryFilter] = useState("all");
-  const [editingCar, setEditingCar] = useState(null);
-  const [showEditModal, setShowEditModal] = useState(false);
+
 };
 
 export default ManageCarPage;
