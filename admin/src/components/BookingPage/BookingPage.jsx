@@ -310,7 +310,15 @@ const BookingPage = () => {
     }
   }, []);
 
-   const handleToggleDetails = (id) =>
+
+
+  
+       !q ||
+        stringForSearch(b.customer).includes(q) ||
+        stringForSearch(b.car).includes(q) ||
+        stringForSearch(b.email).includes(q);
+
+     const handleToggleDetails = (id) =>
     setExpandedBooking(expandedBooking === id ? null : id);
   const handleEditStatus = (id, currentStatus) => {
     setEditingStatus(id);
@@ -324,12 +332,6 @@ const BookingPage = () => {
     setSearchTerm("");
     setStatusFilter("all");
   };
-
-
-       !q ||
-        stringForSearch(b.customer).includes(q) ||
-        stringForSearch(b.car).includes(q) ||
-        stringForSearch(b.email).includes(q);
   return (
     <div>
       
