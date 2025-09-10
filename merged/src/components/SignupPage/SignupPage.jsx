@@ -1,29 +1,4 @@
-
-  const handleSubmit = async (e) => {
-
-
-        // Show a success toast and navigate to /login when it closes
-        toast.success("Account created successfully! Redirecting to Home...", {
-          position: "top-right",
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "dark",
-          autoClose: 1200,
-          onClose: () => navigate("/login"),
-        });
-
-        setLoading(false);
-        return;
-      }
-
-      // Unexpected non-2xx without throwing (rare with axios)
-      toast.error("Unexpected server response during registration.", {
-        theme: "dark",
-      });
-
-       catch (err) {
+   catch (err) {
       // Detailed axios error handling
       console.error("Signup error (frontend):", err);
 
