@@ -241,10 +241,27 @@ const FilterSelect = ({ value, onChange, categories }) => (
 
 // Main component
 const ManageCarPage = () => {
-  const [cars, setCars] = useState([]);
-  const [categoryFilter, setCategoryFilter] = useState("all");
-  const [editingCar, setEditingCar] = useState(null);
-  const [showEditModal, setShowEditModal] = useState(false);
+    setCars(
+        raw.map((c, i) => ({
+          ...buildSafeCar(c, i),
+          image: c.image ? makeImageUrl(c.image) : buildSafeCar(c, i).image,
+          _rawImage: c.image ?? c._rawImage ?? "",
+        }))
+      );
+
+    const car = cars.find((c) => c._id === identifier || c.id === identifier);
+    if (!car) return toast.error("Car not found");
+    if (!window.confirm("Are you sure you want to delete this car?")) return;
+
+
+   const openEdit = (car) => {
+    setEditingCar({
+      ...car,
+      image: car._rawImage ?? car.image ?? "",
+      _id: car._id ?? null,
+    });
+    setShowEditModal(true);
+  };
 };
 
 export default ManageCarPage;
