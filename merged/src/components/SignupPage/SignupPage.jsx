@@ -23,8 +23,7 @@
         theme: "dark",
       });
 
-    
-    catch (err) {
+       catch (err) {
       // Detailed axios error handling
       console.error("Signup error (frontend):", err);
 
