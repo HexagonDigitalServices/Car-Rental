@@ -1,4 +1,3 @@
-// src/pages/CarDetailPage.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import {
@@ -20,8 +19,8 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import carsData from "../../assets/carsData";
-import { carDetailStyles } from "../../assets/dummyStyles";
+import carsData from "../assets/carsData";
+import { carDetailStyles } from "../assets/dummyStyles";
 
 const API_BASE = "http://localhost:5000";
 const api = axios.create({

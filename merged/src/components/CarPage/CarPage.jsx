@@ -1,4 +1,3 @@
-// src/components/CarPage.jsx
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -30,14 +29,8 @@ const CarPage = () => {
   const [error, setError] = useState("");
 
   const abortControllerRef = useRef(null);
-
-  // base URL for API (use env var in production)
   const base = "http://localhost:5000";
-
-  // number of cars to fetch (backend should accept limit param)
   const limit = 12;
-
-  // fallback image (served from backend uploads or remote placeholder)
   const fallbackImage = `${base}/uploads/default-car.png`;
 
   useEffect(() => {
@@ -47,11 +40,9 @@ const CarPage = () => {
         try {
           abortControllerRef.current.abort();
         } catch (e) {
-          // ignore
         }
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchCars = async () => {
