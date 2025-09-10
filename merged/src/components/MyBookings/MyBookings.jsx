@@ -24,7 +24,7 @@ import {
 } from "react-icons/fa";
 import { myBookingsStyles as s } from "../../assets/dummyStyles";
 
-const API_BASE = "https://car-rental-utp1.onrender.com";
+const API_BASE = "http://localhost:5000";
 const TIMEOUT = 15000;
 
 // ---------- Helpers ----------
