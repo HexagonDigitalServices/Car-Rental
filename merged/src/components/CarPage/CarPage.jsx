@@ -10,7 +10,7 @@ import {
   FaShieldAlt,
 } from "react-icons/fa";
 import axios from "axios";
-import { carPageStyles } from "../../assets/dummyStyles";
+import { carPageStyles } from "../assets/dummyStyles";
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 const startOfDay = (d) => {
@@ -32,7 +32,7 @@ const CarPage = () => {
   const abortControllerRef = useRef(null);
 
   // base URL for API (use env var in production)
-  const base = "https://car-rental-utp1.onrender.com";
+  const base = "http://localhost:5000";
 
   // number of cars to fetch (backend should accept limit param)
   const limit = 12;
